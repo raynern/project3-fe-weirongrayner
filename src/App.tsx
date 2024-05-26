@@ -6,7 +6,14 @@ import {
   CallingState,
   StreamCall,
   StreamVideo,
+  StreamVideoParticipant,
+  ParticipantView,
+  StreamTheme,
+  SpeakerLayout,
+  CallControls,
 } from "@stream-io/video-react-sdk";
+
+import "@stream-io/video-react-sdk/dist/css/styles.css";
 import "./App.css";
 
 // To identify Stream project we are using
@@ -33,6 +40,66 @@ const call = client.call("default", callId);
 // In production grade apps, you'd typically store the call instance in a state variable and take care of correctly disposing it. **Read more in our Joining and Creating Calls guide**
 await call.join({ create: true });
 
+export const MyUILayout = () => {
+  // Get access to the call object
+  const call = useCall();
+
+  const { useCallCallingState } = useCallStateHooks();
+
+  const callingState = useCallCallingState();
+
+  // If state is not joined, show loading indicator
+  if (callingState !== CallingState.JOINED) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <StreamTheme>
+      <SpeakerLayout participantsBarPosition="bottom" />
+      <CallControls />
+    </StreamTheme>
+  );
+};
+
+// Add list of participants who joined the call, render each participant
+export const MyParticipantList = (props: {
+  participants: StreamVideoParticipant[];
+}) => {
+  const { participants } = props;
+  return (
+    <div style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+      {participants.map((participant) => (
+        <ParticipantView
+          participant={participant}
+          key={participant.sessionId}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Render local participant in a floating window
+export const MyFloatingLocalParticipant = (props: {
+  participant?: StreamVideoParticipant;
+}) => {
+  const { participant } = props;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "200px",
+        left: "15px",
+        width: "240px",
+        height: "135px",
+        boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 10px 3px",
+        borderRadius: "12px",
+      }}
+    >
+      {participant && <ParticipantView participant={participant} />}
+    </div>
+  );
+};
+
 function App() {
   // StreamVideo and StreamCall makes necessary hooks (client and call objects) available to child components
   return (
@@ -43,25 +110,5 @@ function App() {
     </StreamVideo>
   );
 }
-
-export const MyUILayout = () => {
-  // Get access to the call object
-  const call = useCall();
-
-  const { useCallCallingState, useParticipantCount } = useCallStateHooks();
-  const callingState = useCallCallingState();
-  const participantCount = useParticipantCount();
-
-  // If state is not joined, show loading indicator
-  if (callingState !== CallingState.JOINED) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <div>
-      Call "{call?.id}" has {participantCount} participants
-    </div>
-  );
-};
 
 export default App;
