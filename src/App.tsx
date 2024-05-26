@@ -20,10 +20,10 @@ import "./App.css";
 const apiKey = "mmhfdzb5evj2";
 // To authenticate user. Does this need to be kept secret?
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiQWRtaXJhbF9UaHJhd24iLCJpc3MiOiJodHRwczovL3Byb250by5nZXRzdHJlYW0uaW8iLCJzdWIiOiJ1c2VyL0FkbWlyYWxfVGhyYXduIiwiaWF0IjoxNzE2Njg2MjA1LCJleHAiOjE3MTcyOTEwMTB9.UtXd86USowP512LoaimHKI5GlFBPhWD2YVKtsEi8mdk";
-const userId = "Admiral_Thrawn";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiQnJha2lzcyIsImlzcyI6Imh0dHBzOi8vcHJvbnRvLmdldHN0cmVhbS5pbyIsInN1YiI6InVzZXIvQnJha2lzcyIsImlhdCI6MTcxNjY5Mzg2NywiZXhwIjoxNzE3Mjk4NjcyfQ.wCaUU89KokSoDKUF6929w5PyxAnXYpJSQzbj6Kjl2Go";
+const userId = "Brakiss";
 // To identify the call to join
-const callId = "qccxvQhFCzXe";
+const callId = "svbcpYR3u0Ba";
 
 // Create template user to use to login
 const user: User = {
@@ -61,7 +61,8 @@ export const MyUILayout = () => {
   );
 };
 
-// Add list of participants who joined the call, render each participant
+/* CUSTOM UI to show remote participants who joined the call 
+
 export const MyParticipantList = (props: {
   participants: StreamVideoParticipant[];
 }) => {
@@ -78,7 +79,10 @@ export const MyParticipantList = (props: {
   );
 };
 
-// Render local participant in a floating window
+*/
+
+/* CUSTOM UI to show local participant in a floating window 
+
 export const MyFloatingLocalParticipant = (props: {
   participant?: StreamVideoParticipant;
 }) => {
@@ -99,6 +103,8 @@ export const MyFloatingLocalParticipant = (props: {
     </div>
   );
 };
+
+*/
 
 function App() {
   // StreamVideo and StreamCall makes necessary hooks (client and call objects) available to child components
