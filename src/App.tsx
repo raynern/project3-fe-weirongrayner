@@ -59,7 +59,7 @@ export const MyUILayout = () => {
 
   return (
     <div>
-      Call "{call?.id}" has {participantCount} participants
+      Call "{call?.id}" has {participantCount} participants!
     </div>
   );
 };
