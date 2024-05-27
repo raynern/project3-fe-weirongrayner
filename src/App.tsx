@@ -6,10 +6,8 @@ import {
   CallingState,
   StreamCall,
   StreamVideo,
-  StreamVideoParticipant,
   ParticipantView,
   StreamTheme,
-  SpeakerLayout,
   CallControls,
 } from "@stream-io/video-react-sdk";
 
@@ -20,15 +18,15 @@ import "./App.css";
 const apiKey = "mmhfdzb5evj2";
 // To authenticate user. Does this need to be kept secret?
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiQnJha2lzcyIsImlzcyI6Imh0dHBzOi8vcHJvbnRvLmdldHN0cmVhbS5pbyIsInN1YiI6InVzZXIvQnJha2lzcyIsImlhdCI6MTcxNjY5Mzg2NywiZXhwIjoxNzE3Mjk4NjcyfQ.wCaUU89KokSoDKUF6929w5PyxAnXYpJSQzbj6Kjl2Go";
-const userId = "Brakiss";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiRGVuZ2FyIiwiaXNzIjoiaHR0cHM6Ly9wcm9udG8uZ2V0c3RyZWFtLmlvIiwic3ViIjoidXNlci9EZW5nYXIiLCJpYXQiOjE3MTY3OTQ4MDIsImV4cCI6MTcxNzM5OTYwN30.GjE9oXvuXwYeZbx2cT-mKlTbGD_JzAR1j31tcjsaFu4";
+const userId = "Dengar";
 // To identify the call to join
-const callId = "svbcpYR3u0Ba";
+const callId = "QINXR8Z115kD";
 
 // Create template user to use to login
 const user: User = {
   id: userId,
-  name: "Oliver",
+  name: "Oliver", 
   image: "https://getstream.io/random_svg/?id=oliver&name=Oliver",
 };
 
@@ -43,10 +41,9 @@ await call.join({ create: true });
 export const MyUILayout = () => {
   // Get access to the call object
   const call = useCall();
-
-  const { useCallCallingState } = useCallStateHooks();
-
+  const { useCallCallingState, useParticipants } = useCallStateHooks();
   const callingState = useCallCallingState();
+  const participants = useParticipants();
 
   // If state is not joined, show loading indicator
   if (callingState !== CallingState.JOINED) {
@@ -55,8 +52,23 @@ export const MyUILayout = () => {
 
   return (
     <StreamTheme>
-      <SpeakerLayout participantsBarPosition="bottom" />
-      <CallControls />
+      <div className="mt-4 flex justify-center">
+        {participants.map((p) => (
+          <ParticipantView
+            participant={p}
+            key={p.sessionId}
+            className="w-[15%] 2xl:w-[10%] my-4 mx-4"
+          />
+        ))}
+      </div>
+      <div className="flex justify-center align-middle">
+        <div className="bg-slate-800 rounded-md w-[550px] h-[380px] 2xl:w-[700px] 2xl:h-[500px] my-auto mx-auto mt-3 p-4 2xl:mt-[5%] flex justify-center items-center">
+          Grid Area
+        </div>
+      </div>
+      <div className="absolute bottom-0 left-1/2 right-1/2">
+        <CallControls />
+      </div>
     </StreamTheme>
   );
 };
