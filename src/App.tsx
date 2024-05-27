@@ -6,12 +6,9 @@ import {
   CallingState,
   StreamCall,
   StreamVideo,
-  StreamVideoParticipant,
   ParticipantView,
   StreamTheme,
-  SpeakerLayout,
   CallControls,
-  PaginatedGridLayout,
 } from "@stream-io/video-react-sdk";
 
 import "@stream-io/video-react-sdk/dist/css/styles.css";
@@ -29,7 +26,7 @@ const callId = "QINXR8Z115kD";
 // Create template user to use to login
 const user: User = {
   id: userId,
-  name: "Oliver",
+  name: "Oliver", 
   image: "https://getstream.io/random_svg/?id=oliver&name=Oliver",
 };
 
@@ -44,9 +41,7 @@ await call.join({ create: true });
 export const MyUILayout = () => {
   // Get access to the call object
   const call = useCall();
-
   const { useCallCallingState, useParticipants } = useCallStateHooks();
-
   const callingState = useCallCallingState();
   const participants = useParticipants();
 
@@ -71,7 +66,6 @@ export const MyUILayout = () => {
           Grid Area
         </div>
       </div>
-      {/* <SpeakerLayout participantsBarPosition="bottom" /> */}
       <div className="absolute bottom-0 left-1/2 right-1/2">
         <CallControls />
       </div>
