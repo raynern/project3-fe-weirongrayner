@@ -10,9 +10,11 @@ import {
   StreamTheme,
   CallControls,
 } from "@stream-io/video-react-sdk";
-
+import LoginButton from "./components/LoginButton";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
 import "./App.css";
+import LogoutButton from "./components/LogoutButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // To identify Stream project we are using
 const apiKey = "mmhfdzb5evj2";
@@ -26,7 +28,7 @@ const callId = "QINXR8Z115kD";
 // Create template user to use to login
 const user: User = {
   id: userId,
-  name: "Oliver", 
+  name: "Oliver",
   image: "https://getstream.io/random_svg/?id=oliver&name=Oliver",
 };
 
@@ -50,6 +52,23 @@ export const MyUILayout = () => {
     return <div>Loading...</div>;
   }
 
+  const Profile = () => {
+    const { user, isAuthenticated, isLoading } = useAuth0();
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+
+    return isAuthenticated ? (
+      <div>
+        <img src={user?.picture} alt={user?.name} />
+        <h2>{user?.name}</h2>
+        <p>{user?.email}</p>
+      </div>
+    ) : (
+      <p>Not Logged In</p>
+    );
+  };
+
   return (
     <StreamTheme>
       <div className="mt-4 flex justify-center">
@@ -66,6 +85,9 @@ export const MyUILayout = () => {
           Grid Area
         </div>
       </div>
+      <LoginButton />
+      <LogoutButton />
+      {Profile()}
       <div className="absolute bottom-0 left-1/2 right-1/2">
         <CallControls />
       </div>
