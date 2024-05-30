@@ -4,13 +4,23 @@ import App from "./App.jsx";
 import "./index.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ErrorPage from "./pages/ErrorPage";
+import ErrorBoundary from "./pages/ErrorBoundary.js";
+import Dashboard from "./pages/Dashboard.js";
+import Placeholder from "./pages/Placeholder.js";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorBoundary />,
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "placeholder",
+    element: <Placeholder />,
   },
 ]);
 
