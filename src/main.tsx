@@ -4,6 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthenticationGuard } from "./utilities/AuthenticationGuard.js";
 import ErrorBoundary from "./pages/ErrorBoundary.js";
 import Dashboard from "./pages/Dashboard.js";
 import Placeholder from "./pages/Placeholder.js";
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard />,
+    element: <AuthenticationGuard component={Dashboard} />,
   },
   // {
   //   path: "placeholder",
@@ -30,7 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       domain="dev-wnqp04xircjjnguk.us.auth0.com"
       clientId="C6fevYOkunrHlgHIXg31FGWnU7zycUPI"
       authorizationParams={{
-        redirect_uri: "http://localhost:5173/",
+        redirect_uri: "http://localhost:5173/dashboard",
         // TODO: Set up API audience
         // Scope is only needed for Authorisation Claims
         // audience: "https://dev-wnqp04xircjjnguk.us.auth0.com/api/v2/",
