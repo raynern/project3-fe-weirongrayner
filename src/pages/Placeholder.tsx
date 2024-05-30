@@ -13,7 +13,6 @@ import {
 import { useState, useEffect } from "react";
 import LoginButton from "../components/LoginButton";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
-import "../App.css";
 import LogoutButton from "../components/LogoutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -177,7 +176,7 @@ export const MyFloatingLocalParticipant = (props: {
 
 */
 
-function App() {
+function Placeholder() {
   // StreamVideo and StreamCall makes necessary hooks (client and call objects) available to child components
   return (
     <StreamVideo client={client}>
@@ -188,4 +187,4 @@ function App() {
   );
 }
 
-export default App;
+export default Placeholder;

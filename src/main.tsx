@@ -18,10 +18,10 @@ const router = createBrowserRouter([
     path: "dashboard",
     element: <Dashboard />,
   },
-  {
-    path: "placeholder",
-    element: <Placeholder />,
-  },
+  // {
+  //   path: "placeholder",
+  //   element: <Placeholder />,
+  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
